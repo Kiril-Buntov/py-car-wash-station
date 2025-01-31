@@ -23,16 +23,12 @@ class CarWashStation:
                 self.wash_single_car(car)
         return round(all_cars, 1)
 
-    def calculate_washing_price(self, cars_list: list | Car) -> int:
-        if not isinstance(cars_list, list):
-            cars_list = [cars_list]
-        sum_price = 0
-        for car in cars_list:
-            if car.clean_mark < self.clean_power:
-                price = (car.comfort_class * (self.clean_power - car.clean_mark) *
+    def calculate_washing_price(self, car: Car) -> float:
+        price = 0
+        if car.clean_mark < self.clean_power:
+            price = (car.comfort_class * (self.clean_power - car.clean_mark) *
                          (self.average_rating / self.distance_from_city_center))
-                sum_price += price
-        return round(sum_price, 1)
+        return round(price, 1)
 
     def wash_single_car(self, car: Car) -> int:
         if car.clean_mark < self.clean_power:
